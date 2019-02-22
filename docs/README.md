@@ -1,5 +1,5 @@
-# yaw2a
+# Table of Contents
 
-[link](PAGE2.md)
+[Home](README.md)
 
-[link2](ES6_Prevent_Object_Mutation.md)
+[ES6](ES6_Prevent_Object_Mutation.md)
