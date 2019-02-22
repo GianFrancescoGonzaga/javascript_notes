@@ -1,3 +1,3 @@
 # yawa
 
-[link]('./README2.md')
+[link]('PAGE2.md')
