@@ -2,4 +2,4 @@
 
 [link](PAGE2.md)
 
-[link2](ES6_ Prevent Object Mutation.md)
+[link2](ES6_Prevent_Object_Mutation.md)
