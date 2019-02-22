@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6: Prevent Object Mutation.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#mutate-array-declared-with-const">Mutate Array Declared with Const</a>
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#es6-prevent-object-mutation">ES6: Prevent Object Mutation</a></li>
+<li><a href="#es6-use-arrow-functions-to-write-concise-anonymous-functions">ES6: Use Arrow Functions to Write Concise Anonymous Functions</a></li>
+<li><a href="#es6-write-arrow-functions-with-parameters">ES6: Write Arrow Functions with Parameters</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="mutate-array-declared-with-const">Mutate Array Declared with Const</h1>
+<p>The  <code>const</code> declaration has many use cases in modern JavaScript.</p>
+<p>Some developers prefer to assign all their variables using  <code>const</code> by default, unless they know they will need to reassign the value. Only in that case, they use  <code>let</code>.</p>
+<p>However, it is important to understand that objects (including arrays and functions) assigned to a variable using  <code>const</code> are still mutable. Using the  <code>const</code> declaration only prevents reassignment of the variable identifier.</p>
+<blockquote>
+<p>“use strict”;<br>
+const s = [5, 6, 7];<br>
+s = [1, 2, 3]; // throws error, trying to assign a const<br>
+s[2] = 45; // works just as it would with an array declared with var or let<br>
+console.log(s); // returns [5, 6, 45]</p>
+</blockquote>
+<p>As you can see, you can mutate the object  <code>[5, 6, 7]</code> itself and the variable  <code>s</code> will still point to the altered array  <code>[5, 6, 45]</code>. Like all arrays, the array elements in  <code>s</code> are mutable, but because  <code>const</code> was used, you cannot use the variable identifier  <code>s</code> to point to a different array using the assignment operator.</p>
+<hr>
+<p>An array is declared as  <code>const s = [5, 7, 2]</code>. Change the array to  <code>[2, 5, 7]</code> using various element assignment.</p>
+<h4 id="solution">Solution</h4>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">const</span> s <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">editInPlace</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token string">"use strict"</span><span class="token punctuation">;</span>
+
+<span class="token comment">// change code below this line</span>
+
+  
+
+<span class="token comment">// s = [2, 5, 7]; &lt;- this is invalid</span>
+
+s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+s<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+
+s<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+
+<span class="token comment">// change code above this line</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token function">editInPlace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="es6-prevent-object-mutation">ES6: Prevent Object Mutation</h1>
+<p>As seen in the previous challenge,  <code>const</code> declaration alone doesn’t really protect your data from mutation. To ensure your data doesn’t change, JavaScript provides a function  <code>Object.freeze</code> to prevent data mutation.</p>
+<p>Once the object is frozen, you can no longer add, update, or delete properties from it. Any attempt at changing the object will be rejected without an error.</p>
+<blockquote>
+<p>let obj = {<br>
+name:“FreeCodeCamp”,<br>
+review:“Awesome”<br>
+};<br>
+Object.freeze(obj);<br>
+obj.review = “bad”; //will be ignored. Mutation not allowed<br>
+obj.newProp = “Test”; // will be ignored. Mutation not allowed<br>
+console.log(obj);<br>
+// { name: “FreeCodeCamp”, review:“Awesome”}</p>
+</blockquote>
+<hr>
+<p>In this challenge you are going to use  <code>Object.freeze</code> to prevent mathematical constants from changing. You need to freeze the  <code>MATH_CONSTANTS</code> object so that no one is able alter the value of  <code>PI</code>, add, or delete properties .</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">function</span> <span class="token function">freezeObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token string">"use strict"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> MATH_CONSTANTS <span class="token operator">=</span> <span class="token punctuation">{</span>
+
+PI<span class="token punctuation">:</span> <span class="token number">3.14</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// change code below this line</span>
+
+Object<span class="token punctuation">.</span><span class="token function">freeze</span><span class="token punctuation">(</span>MATH_CONSTANTS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// change code above this line</span>
+
+<span class="token keyword">try</span> <span class="token punctuation">{</span>
+
+MATH_CONSTANTS<span class="token punctuation">.</span>PI <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span> ex <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">return</span> MATH_CONSTANTS<span class="token punctuation">.</span>PI<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> PI <span class="token operator">=</span> <span class="token function">freezeObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="es6-use-arrow-functions-to-write-concise-anonymous-functions">ES6: Use Arrow Functions to Write Concise Anonymous Functions</h1>
+<p>In JavaScript, we often don’t need to name our functions, especially when passing a function as an argument to another function. Instead, we create inline functions. We don’t need to name these functions because we do not reuse them anywhere else.</p>
+<p>To achieve this, we often use the following syntax:</p>
+<blockquote>
+<p>const myFunc = function() {<br>
+const myVar = “value”;<br>
+return myVar;<br>
+}</p>
+</blockquote>
+<p>ES6 provides us with the syntactic sugar to not have to write anonymous functions this way. Instead, you can use  <strong>arrow function syntax</strong>:</p>
+<blockquote>
+<p>const myFunc = () =&gt; {<br>
+const myVar = “value”;<br>
+return myVar;<br>
+}</p>
+</blockquote>
+<p>When there is no function body, and only a return value, arrow function syntax allows you to omit the keyword  <code>return</code>as well as the brackets surrounding the code. This helps simplify smaller functions into one-line statements:</p>
+<blockquote>
+<p>const myFunc = () =&gt; “value”</p>
+</blockquote>
+<p>This code will still return  <code>value</code>by default.</p>
+<hr>
+<p>Rewrite the function assigned to the variable  <code>magic</code>which returns a new  <code>Date()</code>to use arrow function syntax. Also make sure nothing is defined using the keyword  <code>var</code>.</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">magic</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+<span class="token string">"use strict"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span>  <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="es6-write-arrow-functions-with-parameters">ES6: Write Arrow Functions with Parameters</h1>
+<p>Just like a normal function, you can pass arguments into arrow functions.</p>
+<blockquote>
+<p>// doubles input value and returns it<br>
+const doubler = (item) =&gt; item * 2;</p>
+</blockquote>
+<p>You can pass more than one argument into arrow functions as well.</p>
+<hr>
+<p>Rewrite the  <code>myConcat</code>function which appends contents of  <code>arr2</code>to  <code>arr1</code>so that the function uses arrow function syntax.</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">myConcat</span> <span class="token operator">=</span> <span class="token punctuation">(</span>arr1<span class="token punctuation">,</span> arr2<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+<span class="token string">"use strict"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span> arr1<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>arr2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// test your code</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">myConcat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
+    </div>
+  </div>
+</body>
+
+</html>
